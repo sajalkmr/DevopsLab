@@ -1,0 +1,39 @@
+
+1. Create new user:
+   sudo adduser ansibleadmin
+
+2. Add user to sudo group:
+   sudo usermod -aG sudo ansibleadmin
+
+3. Switch to the new user:
+   sudo su - ansibleadmin
+
+4. Generate SSH key pair:
+   ssh-keygen
+
+5. Copy SSH public key to localhost:
+   ssh-copy-id ansibleadmin@127.0.1.1
+
+6. Check hostname IP (optional):
+   hostname -i
+
+7. Install Ansible:
+   sudo apt update
+   sudo apt install ansible -y
+
+8. Create Ansible inventory directory and hosts file:
+   sudo mkdir -p /etc/ansible
+   sudo nano /etc/ansible/hosts
+
+   Example hosts file:
+   [local]
+   localhost ansible_connection=local
+
+   [managed]
+   127.0.1.1 ansible_user=ansibleadmin
+
+9. Check Ansible inventory:
+   ansible-inventory --list -y
+
+10. Test Ansible ping module:
+    sudo ansible all -m ping
